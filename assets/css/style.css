@@ -1,9 +1,13 @@
 body {
     background-image: url("../images/background/tank_bg.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
     font-family: 'Press Start 2p', sans-serif;
     color: white;
+}
+
+h2 {
+    font-size: 30px;
+    text-shadow: 2px 2px #ff0000;
 }
 
 h3 {
@@ -47,6 +51,19 @@ h3 {
     background: white;
 }
 
+#scoreboard {
+    padding: 5px;
+    margin-left: 1%;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    text-shadow: 2px 2px lightgrey;
+}
+
+#battle {
+    margin: 30% 0 0 30%;
+}
+
 #tank_selected,
 #opponent {
     border: 2px solid red;
@@ -59,7 +76,7 @@ h3 {
     margin: 1% 0 0 0;
     padding: 5px;
     text-align: center;
-    text-shadow: 2px 2px #ff0000;
+    font-size: 17px;
     background: lightgrey;
 }
 
@@ -75,14 +92,8 @@ h3 {
     float: left;
     border: 2px solid black;
     border-radius: 5px;
-    margin: 10% 2% 0 2%;
+    margin: 13% 2% 0 2%;
     height: 50px;
     color: white;
     text-shadow: 2px 2px #ff0000;
-}
-
-#scoreboard {
-    margin-left: 1%;
-    border-radius: 5px;
-    background: #000;
 }
