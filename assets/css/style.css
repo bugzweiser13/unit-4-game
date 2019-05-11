@@ -1,0 +1,90 @@
+body {
+    background-image: url("../images/background/tank_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    font-family: 'Press Start 2p', sans-serif;
+    color: white;
+    text-shadow: 2px 2px #ff0000;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+#game {
+    margin: 20% 0 0 0;
+    /*background: white;*/
+}
+
+#banner {
+    background: grey;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+    padding: 5px;
+    margin-right: 1%;
+    font-size: 30px;
+    text-shadow: 2px 2px #ff0000;
+}
+
+#selection {
+    margin-top: 1%;
+}
+
+.tank {
+    float: left;
+    border: 3px solid black;
+    cursor: pointer;
+    color: white;
+    text-shadow: 2px 2px #ff0000;
+}
+
+.tank img {
+    border: 2px solid red;
+}
+
+.attack {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 5%;
+    height: 30px;
+    color: white;
+    text-shadow: 2px 2px #ff0000;
+}
+
+#vehicles {
+    Margin-top: 1%;
+    background: white;
+}
+
+.test {
+    padding: 5px;
+    background: grey;
+}
+
+#tank_selected,
+#opponent {
+    border: 2px solid red;
+}
+
+.player {
+    float: left;
+    border: 3px solid black;
+    margin: 1% 1% 0 0;
+    padding: 5px;
+    text-align: center;
+    background: lightgrey;
+}
+
+.enemy {
+    float: left;
+    border: 3px solid black;
+    margin: 1% 0 0 0;
+    padding: 5px;
+    text-align: center;
+    background: lightgrey;
+}
+
+#test {
+    margin-right: 6%;
+}

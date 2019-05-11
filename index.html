@@ -7,10 +7,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>...Unit 4 Game...</title>
     <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+
 </head>
 
-<body>
 
+<body>
+    <br>
+    <div class="container-fluid" id="game">
+        <div class="row justify-content-end">
+            <div class="col-md-6" id="banner">
+                <h2>Please Select Your Battle Tank Of Choice Below:</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-end" id="selection">
+            <div class="col-md-6 " id="america">
+                <button class="tank" id="america"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams"><h3>America</h3></button>
+
+                <button class="tank" id="british"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2"><h3>British</h3></button>
+
+                <button class="tank" id="chineese"><img src="assets/images/bad_guys/chineese.jpg" alt="chinees.jpg" title="Type-99"><h3>Chineese</h3></button>
+
+                <button class="tank" id="russia"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U"><h3>Russia</h3></button>
+            </div>
+        </div>
+
+        <div class="row justify-content-end" id="test">
+            <div class="col-md-4">
+                <div class="player">
+                    <img src="assets/images/good_guys/america.jpg" alt="america.jpg" id="tank_selected">
+                    <h3>Player</h3>
+                </div>
+                <div class="enemy">
+                    <img src="assets/images/bad_guys/russia.jpg" alt="america.jpg" id="opponent">
+                    <h3>Opponent</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <button class="attack" id="attack">ATTACK</button>
+
+    </div>
 </body>
 
 </html>
