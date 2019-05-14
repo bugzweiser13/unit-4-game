@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/background/tank_bg.jpg");
+    background: url("../images/background/tank_bg.jpg") no-repeat center center fixed;
     background-repeat: no-repeat;
     font-family: 'Press Start 2p', sans-serif;
     color: white;
@@ -7,11 +7,10 @@ body {
 
 h2 {
     font-size: 30px;
-    text-shadow: 2px 2px #ff0000;
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 #game {
@@ -34,15 +33,17 @@ h3 {
     margin-top: 1%;
 }
 
-.tank {
+.btn-tank,
+.btn-choice {
     float: left;
+    padding: 5px;
     border: 3px solid black;
     cursor: pointer;
     color: white;
     text-shadow: 2px 2px #ff0000;
 }
 
-.tank img {
+.btn-tank img {
     border: 2px solid red;
 }
 
@@ -53,7 +54,7 @@ h3 {
 
 #scoreboard {
     padding: 5px;
-    margin-left: 1%;
+    margin-right: 4%;
     border-radius: 5px;
     background: white;
     color: black;
@@ -61,11 +62,15 @@ h3 {
 }
 
 #battle {
-    margin: 30% 0 0 30%;
+    /*margin: 30% 0 0 30%;*/
+    text-shadow: 2px 2px #ff0000;
 }
 
-#tank_selected,
-#opponent {
+#player_selection {
+    border: 2px solid #01ff2b;
+}
+
+#enemy_selection {
     border: 2px solid red;
 }
 
@@ -93,7 +98,55 @@ h3 {
     border: 2px solid black;
     border-radius: 5px;
     margin: 13% 2% 0 2%;
-    height: 50px;
+    padding: 10px;
     color: white;
     text-shadow: 2px 2px #ff0000;
+}
+
+#pp,
+#ep {
+    background: black;
+    max-width: 200px;
+}
+
+@media only screen and (min-width: 768px) {
+    body {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 14px;
+    }
+    #selection button {
+        padding: 1px;
+        width: 25%;
+    }
+    #selection img {
+        width: 75%;
+    }
+    .player,
+    .enemy {
+        width: 33%;
+        padding: 1px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+    #player_selection,
+    #enemy_selection {
+        width: 90%
+    }
+    .attack {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    body {
+        background-size: 100%
+    }
 }

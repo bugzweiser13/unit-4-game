@@ -13,6 +13,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
 
 </head>
 
@@ -22,53 +25,68 @@
     <div class="container-fluid" id="game">
         <div class="row justify-content-end">
             <div class="col-md-6" id="banner">
-                <h2>Please Select Your Battle Tank Of Choice Below:</h2>
+                <h2>Please Select Your Battle Tank Of Choice and Opponent Below:</h2>
             </div>
         </div>
 
         <div class="row justify-content-end" id="selection">
-            <div class="col-md-6" id="america">
-                <button class="tank" id="america"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams"><h3>America</h3></button>
 
-                <button class="tank" id="british"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2"><h3>British</h3></button>
-
-                <button class="tank" id="chineese"><img src="assets/images/bad_guys/chineese.jpg" alt="chinees.jpg" title="Type-99"><h3>Chineese</h3></button>
-
-                <button class="tank" id="russia"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U"><h3>Russia</h3></button>
+            <div class="col-md-6">
+                <button class="btn-tank" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
+                    <h3>America (125)</h3></button>
+                <button class="btn-tank" id="british" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
+                    <h3>British (110)</h3></button>
+                <button class="btn-tank" id="chinese" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
+                    <h3>Chinese (115)</h3></button>
+                <button class="btn-tank" id="russia" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
+                    <h3>Russia (120)</h3></button>
+            </div>
+        </div>
+        <div class="row justify-content-end" id="selection">
+            <div class="col-md-5" id="scoreboard">
+                <h2>Scoreboard:</h2>
+                <hr>
+                <p>Player's HP Remaining: </p>
+                <p>Opponent's HP Remaining: </p>
+                <p>Wins: </p>
+                <p>Loses: </p>
+            </div>
+            <div class="col-md-6">
+                <button class="btn-choice" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
+                    <h3>America (125)</h3></button>
+                <button class="btn-choice" id="british" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
+                    <h3>British (110)</h3></button>
+                <button class="btn-choice" id="chinese" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
+                    <h3>Chinese (115)</h3></button>
+                <button class="btn-choice" id="russia" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
+                    <h3>Russia (120)</h3></button>
+            </div>
+            <div class="col-md-2" id="space">
+                <h2 id="battle">Battle:</h2>
+            </div>
+            <div class="col-md-5">
+                <div class="player">
+                    <img class="img tank_selected" src="assets/images/good_guys/player.jpg" alt="america.jpg" id="player_selection">
+                    <p>Player HP: <span id="pla"></span>
+                        <span id="pla_hp"></span></p>
+                </div>
+                <button class="attack btn-choice" id="attack">ATTACK</button>
+                <div class="enemy">
+                    <img class="img enemy_selected" src="assets/images/bad_guys/enemy.jpg" alt="america.jpg" id="enemy_selection">
+                    <p>Enemy HP:<span id="opo"></span>
+                        <span id="opo_hp" value=""></span>
+                    </p>
+                </div>
             </div>
         </div>
         <div class="row justify-content-start">
-            <div class="col-md-5" id="scoreboard">
-                <h3>Scoreboard:</h3>
-                <hr>
-                <p>Player's HP:</p>
-                <p>Opponet's HP:</p>
-                <p>Wins:</p>
-                <p>Loses:</p>
-            </div>
-            <div class="col-sm-2" id="space">
-                <h2 id="battle">Battle:</h2>
-            </div>
-            <div class="col-sm-4">
-                <div class="player">
-                    <img src="assets/images/good_guys/america.jpg" alt="america.jpg" id="tank_selected">
-                    <p id="pla">Player: xxx</p>
-                </div>
-                <button class="attack" id="attack">ATTACK</button>
-                <div class="enemy">
-                    <img src="assets/images/bad_guys/russia.jpg" alt="america.jpg" id="opponent">
-                    <p id="opo">Opponent: xxx</p>
-                </div>
-            </div>
+
+
         </div>
     </div>
 
+    <script src="assets/js/game.js"></script>
 
-    </div>
-
-
-
-    </div>
 </body>
 
 </html>
