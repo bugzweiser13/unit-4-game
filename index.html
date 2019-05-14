@@ -30,7 +30,9 @@
         </div>
 
         <div class="row justify-content-end" id="selection">
-
+            <div class="col-md-4" id="space">
+                <h2 id="ps">Player Selection: </h2>
+            </div>
             <div class="col-md-6">
                 <button class="btn-tank" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
                     <h3>America (125)</h3></button>
@@ -43,13 +45,8 @@
             </div>
         </div>
         <div class="row justify-content-end" id="selection">
-            <div class="col-md-5" id="scoreboard">
-                <h2>Scoreboard:</h2>
-                <hr>
-                <p>Player's HP Remaining: </p>
-                <p>Opponent's HP Remaining: </p>
-                <p>Wins: </p>
-                <p>Loses: </p>
+            <div class="col-md-4" id="space">
+                <h2 id="es">Enemy Selection: </h2>
             </div>
             <div class="col-md-6">
                 <button class="btn-choice" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
@@ -61,6 +58,17 @@
                 <button class="btn-choice" id="russia" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
                     <h3>Russia (120)</h3></button>
             </div>
+        </div>
+        <div class="row justify-content-start" id="selection">
+            <div class="col-md-4" id="scoreboard">
+                <h2>Scoreboard:</h2>
+                <hr>
+                <p>Player's HP Remaining: <span id="pla_hp"></span></p>
+                <p>Opponent's HP Remaining: <span id="opo_hp"></span></p>
+                <p>Wins: </p>
+                <p>Loses: </p>
+            </div>
+
             <div class="col-md-2" id="space">
                 <h2 id="battle">Battle:</h2>
             </div>
