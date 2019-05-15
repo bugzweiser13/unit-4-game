@@ -33,29 +33,29 @@
             <div class="col-md-4" id="space">
                 <h2 id="ps">Player Selection: </h2>
             </div>
-            <div class="col-md-6">
-                <button class="btn-tank" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
+            <div class="col-md-6" id="player_select">
+                <button class="btn-tank" id="0" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
                     <h3>America (125)</h3></button>
-                <button class="btn-tank" id="british" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
+                <button class="btn-tank" id="1" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
                     <h3>British (110)</h3></button>
-                <button class="btn-tank" id="chinese" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
+                <button class="btn-tank" id="2" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
                     <h3>Chinese (115)</h3></button>
-                <button class="btn-tank" id="russia" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
+                <button class="btn-tank" id="3" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
                     <h3>Russia (120)</h3></button>
             </div>
         </div>
         <div class="row justify-content-end" id="selection">
             <div class="col-md-4" id="space">
-                <h2 id="es">Enemy Selection: </h2>
+                <h2 id="es">&nbsp;Enemy Selection: </h2>
             </div>
-            <div class="col-md-6">
-                <button class="btn-choice" id="america" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
+            <div class="col-md-6" id="enemy_select">
+                <button class="btn-choice" id="0" value="0"><img src="assets/images/good_guys/america.jpg" alt="america.jpg" title="M1A1 Abrams">
                     <h3>America (125)</h3></button>
-                <button class="btn-choice" id="british" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
+                <button class="btn-choice" id="1" value="1"><img src="assets/images/good_guys/british.jpg" alt="british.jpg" title="Challenger 2">
                     <h3>British (110)</h3></button>
-                <button class="btn-choice" id="chinese" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
+                <button class="btn-choice" id="2" value="2"><img src="assets/images/bad_guys/chinese.jpg" alt="chinese.jpg" title="Type-99">
                     <h3>Chinese (115)</h3></button>
-                <button class="btn-choice" id="russia" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
+                <button class="btn-choice" id="3" value="3"><img src="assets/images/bad_guys/russia.jpg" alt="russia.jpg" title="T80-U">
                     <h3>Russia (120)</h3></button>
             </div>
         </div>
@@ -63,26 +63,26 @@
             <div class="col-md-4" id="scoreboard">
                 <h2>Scoreboard:</h2>
                 <hr>
-                <p>Player's HP Remaining: <span id="pla_hp"></span></p>
-                <p>Opponent's HP Remaining: <span id="opo_hp"></span></p>
+                <p>Player's HP Remaining: <span class="pla_hp"></span></p>
+                <p>Opponent's HP Remaining: <span class="opo_hp"></span></p>
                 <p>Wins: </p>
                 <p>Loses: </p>
             </div>
 
             <div class="col-md-2" id="space">
-                <h2 id="battle">Battle:</h2>
+                <h2 id="battle">Battlefield</h2>
             </div>
             <div class="col-md-5">
                 <div class="player">
                     <img class="img tank_selected" src="assets/images/good_guys/player.jpg" alt="america.jpg" id="player_selection">
-                    <p>Player HP: <span id="pla"></span>
-                        <span id="pla_hp"></span></p>
+                    <p><span id="pla">Player</span>
+                        <span class="pla_hp">HP</span></p>
                 </div>
-                <button class="attack btn-choice" id="attack">ATTACK</button>
+                <button class="attack" id="btn-attack">ATTACK</button>
                 <div class="enemy">
                     <img class="img enemy_selected" src="assets/images/bad_guys/enemy.jpg" alt="america.jpg" id="enemy_selection">
-                    <p>Enemy HP:<span id="opo"></span>
-                        <span id="opo_hp" value=""></span>
+                    <p><span id="opo">Enemy</span>
+                        <span class="opo_hp" value="">HP</span>
                     </p>
                 </div>
             </div>
