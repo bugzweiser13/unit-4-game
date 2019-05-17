@@ -222,11 +222,6 @@ $(document).ready(function() {
                 addWin();
                 enemySelection();
 
-            } else(playerResult, enemyResult <= 0); {
-                //window.alert("Player Wins!!!");
-                $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>TIE</p>");
-                addWin();
-                enemySelection();
             };
 
             //player's current HP value html push
