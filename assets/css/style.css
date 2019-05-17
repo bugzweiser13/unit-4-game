@@ -14,8 +14,13 @@ h3 {
 }
 
 #game {
-    margin: 12% 0 0 0;
+    margin: 10% 0 0 0;
     /*background: white;*/
+}
+
+#win_lose {
+    text-align: center;
+    font-size: 35px;
 }
 
 #banner {
@@ -24,7 +29,7 @@ h3 {
     border: 2px solid black;
     text-align: center;
     padding: 5px;
-    margin-right: 1%;
+    /*margin-right: 7%;*/
     font-size: 30px;
     text-shadow: 2px 2px #ff0000;
 }
@@ -33,24 +38,45 @@ h3 {
     margin-top: 1%;
 }
 
-#ps,
+#ps {
+    text-shadow: 2px 2px #01ff2b;
+}
+
 #es {
-    margin: 20% 0 0 20%;
     text-shadow: 2px 2px #ff0000;
 }
 
-.btn-tank,
-.btn-choice {
+#ps,
+#es {
+    margin: 10% 0 0 30%;
+}
+
+.btn-player,
+.btn-enemy {
     float: left;
     padding: 5px;
     margin-left: 1%;
     border: 3px solid black;
+    border-radius: 5px;
     cursor: pointer;
     color: white;
+}
+
+.btn-player {
+    text-shadow: 2px 2px #01ff2b;
+}
+
+.btn-enemy {
     text-shadow: 2px 2px #ff0000;
 }
 
-.btn-tank img {
+.btn-player img {
+    border-radius: 5px;
+    border: 2px solid #01ff2b;
+}
+
+.btn-enemy img {
+    border-radius: 5px;
     border: 2px solid red;
 }
 
@@ -59,17 +85,57 @@ h3 {
     background: white;
 }
 
-#scoreboard {
+#sb_title {
+    text-align: center;
+}
+
+#sb_pl_hp {
+    margin: 0 0 0 4%;
+}
+
+#stats {
+    font-size: 18px;
+    text-align: center;
+    margin: 6% 0 0 0;
+}
+
+#sb_pl_hp,
+#sb_op_hp {
+    border: 3px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background: black;
+    color: white;
+    text-shadow: none;
+}
+
+.pla_hp {
     padding: 5px;
+    font-family: Orbitron;
+    font-size: 90px;
+    color: green;
+}
+
+.opo_hp {
+    padding: 5px;
+    font-family: Orbitron;
+    font-size: 90px;
+    color: red;
+}
+
+#scoreboard {
+    background: url("../images/background/concrete_seamless.png");
+    border: 3px solid black;
+    padding: 5px;
+    height: 250px;
     margin-left: 4%;
     border-radius: 5px;
-    background: white;
     color: black;
     text-shadow: 2px 2px lightgrey;
 }
 
 #battle {
-    margin: 30% 0 0 30%;
+    margin: 30% 0 0 0;
     text-shadow: 2px 2px #ff0000;
 }
 
@@ -117,8 +183,7 @@ h3 {
     max-width: 200px;
 }
 
-
-/*@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) {
     body {
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -126,28 +191,47 @@ h3 {
         background-size: cover;
     }
     h2 {
-        font-size: 20px;
+        font-size: 14px;
     }
     h3 {
-        font-size: 14px;
+        font-size: 10px;
+    }
+    #game {
+        margin: 20% 0 0 0;
+    }
+    #banner {
+        padding: 2px;
     }
     #selection button {
         padding: 1px;
-        width: 25%;
+        width: 22%;
     }
     #selection img {
         width: 75%;
     }
+    #scoreboard {
+        padding: 1px;
+        height: 150px;
+    }
+    #sb_pl_hp,
+    #sb_op_hp {
+        font-size: 12px;
+        height: 100px;
+    }
+    #stats {
+        font-size: 12px;
+        margin: 3% 0 0 0;
+    }
+    .pla_hp,
+    .opo_hp {
+        padding: 1px;
+        font-size: 45px;
+    }
     .player,
     .enemy {
-        width: 33%;
+        width: 25%;
         padding: 1px;
-        font-size: 12px;
-        line-height: 15px;
-    }
-    #player_selection,
-    #enemy_selection {
-        width: 90%
+        font-size: 10px;
     }
     .attack {
         font-size: 11px;
@@ -158,4 +242,4 @@ h3 {
     body {
         background-size: 100%
     }
-}*/
+}
