@@ -1,14 +1,86 @@
 $(document).ready(function() {
 
-    var unHide = [0, 1, 2, 3];
-    var avatarReset = $(".tank_selected");
-    var apReset = $(".pla_ap");
-    var nameReset = $("#pla")
-    var avatar2Reset = $(".enemy_selected");
-    var capReset = $(".opo_cap");
-    var name2Reset = $("#opo")
+    var tanks = [
 
-    //console.log(unHide);
+        //tank information
+        //hp = hit points
+        //ap = attack power
+        //cap = counter attack power
+
+        {
+            name: 'America',
+            visual: 'assets/images/good_guys/america.jpg',
+            hp: 125,
+            ap: (Math.floor(Math.random() * 40) + 1),
+            cap: (Math.floor(Math.random() * 50) + 1),
+        },
+        {
+            name: 'British',
+            visual: 'assets/images/good_guys/british.jpg',
+            hp: 110,
+            ap: (Math.floor(Math.random() * 45) + 1),
+            cap: (Math.floor(Math.random() * 55) + 1),
+        },
+        {
+            name: 'Chinese',
+            visual: 'assets/images/bad_guys/chinese.jpg',
+            hp: 115,
+            ap: (Math.floor(Math.random() * 40) + 1),
+            cap: (Math.floor(Math.random() * 50) + 1),
+        },
+        {
+            name: 'Russia',
+            visual: 'assets/images/bad_guys/russia.jpg',
+            hp: 120,
+            ap: (Math.floor(Math.random() * 45) + 1),
+            cap: (Math.floor(Math.random() * 50) + 1),
+        },
+        {
+            name: 'Player',
+            visual: 'assets/images/good_guys/player.jpg',
+            hp: 000,
+            ap: "AP",
+            cap: "CAP",
+        },
+        {
+            name: 'Enemy',
+            visual: 'assets/images/bad_guys/enemy.jpg',
+            hp: 000,
+            ap: "AP",
+            cap: "CAP",
+        },
+    ];
+
+    $.each(tanks, function(i, value) {
+        var tankChoice = $("<button>")
+        tankChoice.text(tanks[i]);
+    });
+
+    //player selection variables
+    var playerSelect = $(".tank_selected");
+    var playerSelect_ap = $(".pla_ap");
+    var playerName = $("#pla");
+    var playerTank_hp = [];
+    var playerTank_ap = [];
+    var playerTank_cap = [];
+
+    //select enemy from array
+    $.each(tanks, function(i, value) {
+        var enemyChoice = $("<button>")
+        enemyChoice.text(tanks[i]);
+    });
+
+    //enemy selection varaiables
+    var enemySelect = $(".enemy_selected");
+    var enemySelect_cap = $(".opo_cap");
+    var enemyName = $("#opo");
+    var enemyTank_hp = [];
+    var enemyTank_ap = [];
+    var enemyTank_cap = [];
+
+    var unHide = [0, 1, 2, 3, 4, 5];
+
+    console.log(unHide);
 
     //win / loss tallies
 
@@ -44,103 +116,41 @@ $(document).ready(function() {
         //remove win / loss banner
         $("#win_lose").html("<p></p>");
 
-        //avatar resets
-        avatarReset.attr(
+        //player avatar reset
+        playerSelect.attr(
             'src',
-            'assets/images/good_guys/player.jpg',
+            tanks[4].visual,
         );
-        apReset.html(
-            'AP',
+        //player hp
+        playerSelect_ap.html(
+            tanks[4].ap,
         );
-        nameReset.html(
-            'Player',
+        //player name display
+        playerName.html(
+            tanks[4].name,
         );
-        avatar2Reset.attr(
+        //enemy avatar reset
+        enemySelect.attr(
             'src',
-            'assets/images/bad_guys/enemy.jpg',
+            tanks[5].visual,
         );
-        capReset.html(
-            'CAP',
+        //player hp
+        enemySelect_cap.html(
+            tanks[5].cap,
         );
-        name2Reset.html(
-            'Player',
+        //player name display
+        enemyName.html(
+            tanks[5].name,
         );
+
         game();
     }
 
     function game() {
 
-        //Global Variables
+        //audio Variables
         var shot = new Audio("assets/sounds/shot.wav");
         var lose = new Audio("assets/sounds/lose.mp3")
-
-        //tank data variables
-
-        var tanks = [
-
-            //tank information
-            //hp = hit points
-            //ap = attack power
-            //cap = counter attack power
-
-            {
-                name: 'America',
-                visual: 'assets/images/good_guys/america.jpg',
-                hp: 125,
-                ap: (Math.floor(Math.random() * 20) + 1),
-                cap: (Math.floor(Math.random() * 25) + 1),
-            },
-            {
-                name: 'British',
-                visual: 'assets/images/good_guys/british.jpg',
-                hp: 110,
-                ap: (Math.floor(Math.random() * 25) + 1),
-                cap: (Math.floor(Math.random() * 30) + 1),
-            },
-            {
-                name: 'Chinese',
-                visual: 'assets/images/bad_guys/chinese.jpg',
-                hp: 115,
-                ap: (Math.floor(Math.random() * 20) + 1),
-                cap: (Math.floor(Math.random() * 25) + 1),
-            },
-            {
-                name: 'Russia',
-                visual: 'assets/images/bad_guys/russia.jpg',
-                hp: 120,
-                ap: (Math.floor(Math.random() * 25) + 1),
-                cap: (Math.floor(Math.random() * 30) + 1),
-            },
-
-        ];
-
-        //select player from array
-        $.each(tanks, function(i, value) {
-            var tankChoice = $("<button>")
-            tankChoice.text(tanks[i]);
-        });
-
-        //player selection variables
-        var playerSelect = $(".tank_selected");
-        var playerSelect_ap = $(".pla_ap");
-        var playerName = $("#pla");
-        var playerTank_hp = [];
-        var playerTank_ap = [];
-        var playerTank_cap = [];
-
-        //select enemy from array
-        $.each(tanks, function(i, value) {
-            var enemyChoice = $("<button>")
-            enemyChoice.text(tanks[i]);
-        });
-
-        //enemy selection varaiables
-        var enemySelect = $(".enemy_selected");
-        var enemySelect_cap = $(".opo_cap");
-        var enemyName = $("#opo");
-        var enemyTank_hp = [];
-        var enemyTank_ap = [];
-        var enemyTank_cap = [];
 
         function tankSelection() {
             function playerSelection() {
@@ -286,16 +296,15 @@ $(document).ready(function() {
                     //setTimeout(function() { location.reload(); }, 5000);
                     setTimeout(function() { lossReload(); }, 5000);
 
-
-
                 };
                 //win
                 if (enemyResult <= 0) {
                     //window.alert("Player Wins!!!");
+                    setTimeout(function() { $("#btn-attack").off("click"); }, 2500);
                     $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You Win Select Again</p>");
                     addWin();
-                    enemySelection();
-                    //tankSelection();
+                    //enemySelection();
+                    tankSelection();
                     //game();
 
                 };
