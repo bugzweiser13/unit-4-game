@@ -117,16 +117,19 @@ body {
 
 #player_selection {
     border: 2px solid #01ff2b;
+    border-radius: 5px;
 }
 
 #enemy_selection {
     border: 2px solid red;
+    border-radius: 5px;
 }
 
 .player,
 .enemy {
     float: left;
     border: 3px solid black;
+    border-radius: 5px;
     margin: 1% 0 0 0;
     padding: 5px;
     text-align: center;
@@ -166,7 +169,7 @@ body {
     }
     #banner h2,
     #sb_title h2 {
-        font-size: 14px;
+        font-size: 18px;
     }
     .btn-player h3,
     .btn-enemy h3 {
@@ -174,19 +177,19 @@ body {
     }
     #ps,
     #es {
-        font-size: 14px;
+        font-size: 18px;
     }
     #win_lose {
         font-size: 17px;
     }
     #game {
-        margin: 20% 0 0 0;
+        margin: 15% 0 0 0;
     }
     #banner {
         padding: 2px;
     }
     #selection button {
-        padding: 1px;
+        padding: 5px;
         width: 22%;
     }
     #selection img {
@@ -198,7 +201,7 @@ body {
     }
     #sb_pl_hp,
     #sb_op_hp {
-        font-size: 8px;
+        font-size: 12px;
         height: 100px;
     }
     #stats {
@@ -216,11 +219,11 @@ body {
     .player,
     .enemy {
         width: 25%;
-        padding: 1px;
-        font-size: 10px;
+        padding: 5px;
+        font-size: 11px;
     }
     .attack {
-        font-size: 11px;
+        font-size: 12px;
     }
 }
 
@@ -234,14 +237,14 @@ body {
     }
     .btn-player h3,
     .btn-enemy h3 {
-        font-size: 16px;
+        font-size: 18px;
     }
     #ps,
     #es {
         font-size: 30px;
     }
     #game {
-        margin: 10% 0 0 0;
+        margin: 11% 0 0 0;
     }
     #win_lose {
         font-size: 35px;
@@ -262,7 +265,7 @@ body {
     }
     #sb_pl_hp,
     #sb_op_hp {
-        font-size: 16px;
+        font-size: 18px;
         height: 175px;
     }
     #stats {
@@ -280,7 +283,7 @@ body {
     .player,
     .enemy {
         padding: 5px;
-        font-size: 17px;
+        font-size: 18px;
     }
     .attack {
         padding: 10px;
