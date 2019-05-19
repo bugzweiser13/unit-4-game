@@ -283,7 +283,7 @@ body {
     .player,
     .enemy {
         padding: 5px;
-        font-size: 18px;
+        font-size: 17px;
     }
     .attack {
         padding: 10px;

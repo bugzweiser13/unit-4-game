@@ -1,8 +1,10 @@
 $(document).ready(function() {
 
+    //global variables
     //audio Variables
     var shot = new Audio("assets/sounds/shot.wav");
     var lose = new Audio("assets/sounds/lose.mp3")
+
 
     var tanks = [
 
@@ -15,28 +17,28 @@ $(document).ready(function() {
             name: 'America',
             visual: 'assets/images/good_guys/america.jpg',
             hp: 125,
-            ap: (Math.floor(Math.random() * 40) + 1),
+            ap: (Math.floor(Math.random() * 40) + 10),
             cap: (Math.floor(Math.random() * 50) + 1),
         },
         {
             name: 'British',
             visual: 'assets/images/good_guys/british.jpg',
             hp: 110,
-            ap: (Math.floor(Math.random() * 45) + 1),
+            ap: (Math.floor(Math.random() * 45) + 10),
             cap: (Math.floor(Math.random() * 55) + 1),
         },
         {
             name: 'Chinese',
             visual: 'assets/images/bad_guys/chinese.jpg',
             hp: 115,
-            ap: (Math.floor(Math.random() * 40) + 1),
+            ap: (Math.floor(Math.random() * 40) + 10),
             cap: (Math.floor(Math.random() * 50) + 1),
         },
         {
             name: 'Russia',
             visual: 'assets/images/bad_guys/russia.jpg',
             hp: 120,
-            ap: (Math.floor(Math.random() * 45) + 1),
+            ap: (Math.floor(Math.random() * 45) + 10),
             cap: (Math.floor(Math.random() * 50) + 1),
         },
         {
@@ -55,61 +57,39 @@ $(document).ready(function() {
         },
     ];
 
-    $.each(tanks, function(i, value) {
-        var tankChoice = $("<button>")
-        tankChoice.text(tanks[i]);
-    });
-
     //player selection variables
     var playerSelect = $(".tank_selected");
     var playerSelect_ap = $(".pla_ap");
     var playerName = $("#pla");
-    var playerTank_hp = [];
-    var playerTank_ap = [];
-    var playerTank_cap = [];
-
-    //select enemy from array
-    $.each(tanks, function(i, value) {
-        var enemyChoice = $("<button>")
-        enemyChoice.text(tanks[i]);
-    });
 
     //enemy selection varaiables
     var enemySelect = $(".enemy_selected");
     var enemySelect_cap = $(".opo_cap");
     var enemyName = $("#opo");
-    var enemyTank_hp = [];
-    var enemyTank_ap = [];
-    var enemyTank_cap = [];
 
     var unHideTanks = [0, 1, 2, 3, 4, 5];
 
-    console.log(unHideTanks);
-
     //win / loss tallies
+    var winNum = 0
+    var lossNum = 0
 
     function addWin() {
-        var win = 0
-        win++
-        $(".win").html(win)
+        winNum++
+        $(".win").html(winNum);
     }
 
     function addLoss() {
-        var loss = 0
-        loss++
-        $(".loss").html(loss)
+        lossNum++
+        $(".loss").html(lossNum);
     }
 
     //battle reset after defeat
     function lossReload() {
-        //debugging
-        //console.log("did this run?")
         //show hidden tanks from selections
         for (var i = 0; i < unHideTanks.length; i++) {
             var hiddenPla = $("#" + (unHideTanks[i]));
             var hiddenEne = $("#" + [unHideTanks[i]] + "-" + [unHideTanks[i]]);
-            //value varification
-            //console.log(hiddenPla);
+            //unhide hidden selections
             hiddenPla.animate({
                 opacity: "1.0"
             });
@@ -125,7 +105,7 @@ $(document).ready(function() {
             'src',
             tanks[4].visual,
         );
-        //player hp
+        //player ap
         playerSelect_ap.html(
             tanks[4].ap,
         );
@@ -148,53 +128,34 @@ $(document).ready(function() {
         );
         $(".pla_hp").html(tanks[4].hp);
         $(".opo_hp").html(tanks[5].hp);
-
-        playerSelection();
-        enemySelection();
+        allSelection();
         attack();
-
+        return false;
     }
 
-    function playerSelection() {
+    function allSelection() {
 
-        //player selection data / image load
+        //player selection html load
         $(".btn-player").on("click", function() {
             var player = $(this).attr('value');
-            //debugging console log
-            console.log("Player Value= " + player);
 
             //player / enemy fade (hide) variables
             var hidePlayer = $("#" + [player]);
             var hideEnemy = $("#" + [player] + "-" + [player]);
 
-            //page loads, player information
             //player tank selection
             playerSelect.attr(
                 'src',
                 tanks[player].visual,
             );
-            //player hp
+            //player ap
             playerSelect_ap.html(
                 tanks[player].ap,
             );
             //player name display
             playerName.html(
                 tanks[player].name,
-                //debugging console log
-                console.log("Name is: " + tanks[player].name),
             );
-
-            //player attribute push to outside array
-            playerTank_hp.push(
-                tanks[player].hp,
-            );
-            playerTank_ap.push(
-                tanks[player].ap,
-            );
-            playerTank_cap.push(
-                tanks[player].cap,
-            );
-
             //hide player choice (and remove from enemy list) when selected
             hidePlayer.animate({
                 opacity: "0.02"
@@ -202,28 +163,15 @@ $(document).ready(function() {
             hideEnemy.animate({
                 opacity: "0.02"
             });
-            //disable selection buttons after selection made
-            //$(".btn-player").attr("disabled", "disabled");
-            //hit point HTML push to Scoreboard
-            $(".pla_hp").html(tanks[player].hp);
-            //debugging console log
-            console.log("Player HP: " + tanks[player].hp);
         });
 
-    }
-
-    function enemySelection() {
-
-        //enemy selection data / image load
+        //enemy selection html loads
         $(".btn-enemy").on("click", function() {
-            $(".btn-enemy").attr("disabled");
+            //$(".btn-enemy").attr("disabled");
             var enemy = $(this).attr('value');
-            //debugging console log
-            console.log("Enemy Value= " + enemy);
             //player / enemy fade (hide) variables
             var hideEnemy = $("#" + [enemy] + "-" + [enemy]);
             var hidePlayer = $("#" + [enemy]);
-
             //page loads, enemy information
             enemySelect.attr(
                 'src',
@@ -234,21 +182,7 @@ $(document).ready(function() {
             );
             enemyName.html(
                 tanks[enemy].name,
-                //debugging console log
-                console.log("Name is: " + tanks[enemy].name),
             );
-
-            //enemy attribute push to outside array
-            enemyTank_hp.push(
-                tanks[enemy].hp,
-            );
-            enemyTank_ap.push(
-                tanks[enemy].ap,
-            );
-            enemyTank_cap.push(
-                tanks[enemy].cap,
-            );
-
             //hide enemy choice (and remove from player list) when selected
             hideEnemy.animate({
                 opacity: "0.02"
@@ -256,116 +190,139 @@ $(document).ready(function() {
             hidePlayer.animate({
                 opacity: "0.02"
             });
-
-            //disable selection buttons after selection
-            //$(".btn-enemy").attr("disabled", "disabled");
-            //hit point HTML push to Scoreboard
-            $(".opo_hp").html(tanks[enemy].hp);
-            //debugging console log
-            console.log("Enemy HP: " + tanks[enemy].hp);
         });
     }
 
     //attack function
     function attack() {
-        $("#btn-attack").on("click", function() {
-            //tank shot wav
-            shot.play();
-            console.log("Enemy HP: " + enemyTank_hp);
-            console.log("Enemy AP: " + enemyTank_ap);
-            console.log("Enemy CAP: " + enemyTank_cap);
-            console.log("Player HP: " + enemyTank_hp);
-            console.log("Player AP: " + playerTank_ap);
-            console.log("Player AP: " + playerTank_cap);
-            //debugging / value verification
-            //console.log(enemyTank_hp + " " + playerTank_ap);
+        $(".btn-player").on("click", function() {
+            var player = $(this).attr('value');
 
-            //base hp reduction math set point
-            var enemyResult = 0
-            var playerResult = 0
+            var plHp = tanks[player].hp;
+            var plAp = tanks[player].ap;
+            var plCap = tanks[player].cap;
 
-            //var playerTank_hp = [];
-            //var playerTank_ap = [];
-            //var playerTank_cap = [];
+            $(".pla_hp").html(tanks[player].hp);
 
-            //var enemyTank_hp = [];
-            //var enemyTank_ap = [];
-            //var enemyTank_cap = [];
+            console.log("Attack Function HP(player)= " + plHp)
+            console.log("Attack Function AP(player)= " + plAp)
+            console.log("Attack Function CAP(player)= " + plCap)
 
-            //initial player attack against enemy
-            enemyResult = (enemyTank_hp - playerTank_ap);
-            enemyTank_hp = enemyResult
+            $(".btn-enemy").on("click", function() {
+                //$(".btn-enemy").attr("disabled");
+                var enemy = $(this).attr('value');
 
-            //enemy counter attack
-            playerResult = (playerTank_hp - enemyTank_cap);
-            playerTank_hp = playerResult
+                var enHp = tanks[enemy].hp;
+                var enAp = tanks[enemy].ap;
+                var enCap = tanks[enemy].cap;
 
-            //win / lose alert and tally
-            //loss
-            if (playerResult <= 0) {
-                addLoss();
-                lose.play();
-                loss();
-            }
+                $(".opo_hp").html(tanks[enemy].hp);
 
-            //win
-            else if (enemyResult <= 0) {
-                addWin();
-                win();
-            }
+                console.log("Attack Function HP(enemy)= " + enHp)
+                console.log("Attack Function AP(enemy)= " + enAp)
+                console.log("Attack Function CAP(enemy)= " + enCap)
 
-            //tie
-            else if (playerResult <= 0 && enemyResult <= 0) {
-                tie();
-            };
+                $('btn-attack').attr("disabled");
+                $("#btn-attack").on("click", function() {
+                    //tank shot wav
+                    shot.play();
 
-            //player's current HP value html push
-            $(".pla_hp").html(playerResult);
-            //enemy's current HP value html push
-            $(".opo_hp").html(enemyResult);
+                    //base hp reduction math set point
+                    var enemyResult = 0
+                    var playerResult = 0
 
-            //debugging console log
-            console.log("Player HP(2): " + playerResult);
-            console.log("Enemy HP(2): " + enemyResult);
-            console.log("Player AP(2): " + playerTank_ap);
-            console.log("Enemy CAP(2): " + enemyTank_cap);
+                    //debugging / value verification
+                    //console.log(enemyTank_hp + " " + playerTank_ap);
+
+                    //initial player attack against enemy
+                    enemyResult = (enHp - plAp);
+                    enHp = enemyResult
+                        //enemyResult = (enemyTank_hp - playerTank_ap);
+                        //enemyTank_hp = enemyResult
+
+                    //enemy counter attack
+                    playerResult = (plHp - enCap);
+                    plHp = playerResult
+                        //playerResult = (playerTank_hp - enemyTank_cap);
+                        //playerTank_hp = playerResult
+
+                    //attack debugging
+                    console.log(this);
+                    console.log("enHp: " + enHp);
+                    console.log("plAp: " + plAp);
+                    console.log("enemyResult: " + enemyResult);
+                    console.log("plHp: " + plHp);
+                    console.log("enCap: " + enCap);
+                    console.log("playerResult: " + playerResult);
+
+
+                    //win / lose alert and tally
+                    //loss
+                    if (playerResult <= 0 && enemyResult > 0) {
+                        addLoss();
+                        lose.play();
+                        loss();
+                    }
+
+                    //win
+                    else if (enemyResult <= 0 && playerResult > 0) {
+                        $('btn-attack').attr("disabled", "disabled");
+                        addWin();
+                        win();
+                    }
+
+                    //tie
+                    else if (playerResult <= 0 && enemyResult <= 0) {
+                        tie();
+                    };
+
+                    //player's current HP value html push
+                    $(".pla_hp").html(playerResult);
+                    //enemy's current HP value html push
+                    $(".opo_hp").html(enemyResult);
+
+                    //debugging console log
+                    //console.log("Player HP(2): " + playerResult);
+                    //console.log("Enemy HP(2): " + enemyResult);
+                    //console.log("Player AP(2): " + playerTank_ap);
+                    //console.log("Enemy CAP(2): " + enemyTank_cap);
+                });
+            });
         });
     }
     //game run code
 
-    var enemyTank_hp = [];
-    var enemyTank_ap = [];
-    var enemyTank_cap = [];
-
     function loss() {
-        //window.alert("Player Loses!!!");
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>GAME OVER!!!</p>");
-        $("#btn-attack").off("click");
+        //$("#btn-attack").off("click");
         //setTimeout(function() { location.reload(); }, 5000);
         setTimeout(function() { lossReload(); }, 5000);
-
-
-
     }
 
     function tie() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>There was a TIE!!!</p>");
-
+        setTimeout(function() { lossReload(); }, 5000);
     }
 
     function win() {
         //window.alert("Player Wins!!!");
-        setTimeout(function() { $("#btn-attack").off("click"); }, 2500);
-        $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
+        //$("#btn-attack").attr("disabled", "disabled");
         $(".btn-player").attr("disabled", "disabled");
-        enemySelection();
+        $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
+        //allSelection();
         attack();
 
     }
 
-    playerSelection();
-    enemySelection();
+    allSelection();
+    //enemySelection();
     attack();
 
+    //console.log("Enemy HP: " + enemyTank_hp);
+    //console.log("Enemy AP: " + enemyTank_ap);
+    //console.log("Enemy CAP: " + enemyTank_cap);
+    //console.log("Player HP: " + enemyTank_hp);
+    //console.log("Player AP: " + playerTank_ap);
+    //console.log("Player AP: " + playerTank_cap);
 
 })
