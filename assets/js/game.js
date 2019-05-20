@@ -142,6 +142,8 @@ $(document).ready(function() {
 
         //allSelection();
         $('#btn-attack').prop("disabled", false);
+        $('.btn-player').prop("disabled", false);
+        $('.btn-enemy').prop("disabled", false);
         attack();
     }
 
@@ -216,6 +218,7 @@ $(document).ready(function() {
 
             $(".pla_hp").html(tanks[player].hp);
             console.log(this);
+
             //console.log("Attack Function HP(player)= " + plHp)
             //console.log("Attack Function AP(player)= " + plAp)
             //console.log("Attack Function CAP(player)= " + plCap)
@@ -271,6 +274,8 @@ $(document).ready(function() {
                     //win / lose alert and tally
                     //loss
                     if (playerResult <= 0 && enemyResult > 0) {
+                        $('.btn-player').prop("disabled", true);
+                        $('.btn-enemy').prop("disabled", true);
                         $('#btn-attack').attr("disabled", "disabled");
                         lose.play();
                         addLoss();
@@ -279,6 +284,7 @@ $(document).ready(function() {
                     //win
                     else if (enemyResult <= 0 && playerResult > 0) {
                         $('#btn-attack').attr("disabled", "disabled");
+                        $('.btn-player').prop("disabled", true);
                         addWin();
                     }
 
@@ -293,11 +299,13 @@ $(document).ready(function() {
                     //enemy's current HP value html push
                     $(".opo_hp").html(enemyResult);
                 });
+                return false;
             });
-            return false;
         });
-        return false;
+
     }
+
+
     //battle outcome functions
     function battleLoss() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>GAME OVER!!!</p>");
