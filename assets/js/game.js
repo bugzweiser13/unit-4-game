@@ -79,19 +79,22 @@ $(document).ready(function() {
         if (winNum <= 4) {
             $('#win_lose').html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!<p>")
         }
+        battleWin();
     }
 
     function addLoss() {
         lossNum++
         $(".loss").html(lossNum);
+        battleLoss();
     }
 
     //battle reset after defeat
     function lossReload() {
 
+        //***fault / bugs that need to be corrected ***/
         //need to correct page reload glitch that triggers game over (loss function) 
-        //on first attack click of first battle, only happens after loss reload
-        //variables are not "cleared" and each attack button presses adds 3 more (see console)
+        //first battle run-threw opperates as expected, glitches only happens after reload
+        //all "button" inputs attach multiples events after any win/loss/tie reload
 
         //show hidden tanks from selections
         for (var i = 0; i < unHideTanks.length; i++) {
@@ -137,20 +140,8 @@ $(document).ready(function() {
         $(".pla_hp").html(tanks[4].hp);
         $(".opo_hp").html(tanks[5].hp);
 
-        //player stat reset
-        var player = null;
-        var plHp = null;
-        var plAp = null;
-        var plCap = null;
-
-        //enemy stat reset
-        var enemy = null;
-        var enHp = null;
-        var enAp = null;
-        var enCap = null;
-
         //allSelection();
-        $('#btn-attack').attr('disabled');
+        $('#btn-attack').prop("disabled", false);
         attack();
     }
 
@@ -213,7 +204,6 @@ $(document).ready(function() {
         });
     });
 
-
     //attack function
     function attack() {
         //player data selection
@@ -222,13 +212,13 @@ $(document).ready(function() {
 
             var plHp = tanks[player].hp;
             var plAp = tanks[player].ap;
-            var plCap = tanks[player].cap;
+            //var plCap = tanks[player].cap;
 
             $(".pla_hp").html(tanks[player].hp);
-
-            console.log("Attack Function HP(player)= " + plHp)
-            console.log("Attack Function AP(player)= " + plAp)
-            console.log("Attack Function CAP(player)= " + plCap)
+            console.log(this);
+            //console.log("Attack Function HP(player)= " + plHp)
+            //console.log("Attack Function AP(player)= " + plAp)
+            //console.log("Attack Function CAP(player)= " + plCap)
 
             //enemy data selection
             $(".btn-enemy").on("click", function() {
@@ -236,17 +226,21 @@ $(document).ready(function() {
                 var enemy = $(this).attr('value');
 
                 var enHp = tanks[enemy].hp;
-                var enAp = tanks[enemy].ap;
+                //var enAp = tanks[enemy].ap;
                 var enCap = tanks[enemy].cap;
+
+                console.log(this);
 
                 $(".opo_hp").html(tanks[enemy].hp);
 
-                console.log("Attack Function HP(enemy)= " + enHp)
-                console.log("Attack Function AP(enemy)= " + enAp)
-                console.log("Attack Function CAP(enemy)= " + enCap)
+                //console.log("Attack Function HP(enemy)= " + enHp)
+                //console.log("Attack Function AP(enemy)= " + enAp)
+                //console.log("Attack Function CAP(enemy)= " + enCap)
+
 
                 //battle attack commands
                 $("#btn-attack").on("click", function() {
+
                     //tank shot wav
                     shot.play();
 
@@ -266,11 +260,11 @@ $(document).ready(function() {
 
                     //attack debugging
                     console.log(this);
-                    console.log("enHp: " + enHp);
-                    console.log("plAp: " + plAp);
+                    //console.log("enHp: " + enHp);
+                    //console.log("plAp: " + plAp);
                     console.log("enemyResult: " + enemyResult);
-                    console.log("plHp: " + plHp);
-                    console.log("enCap: " + enCap);
+                    //console.log("plHp: " + plHp);
+                    //console.log("enCap: " + enCap);
                     console.log("playerResult: " + playerResult);
 
 
@@ -278,16 +272,14 @@ $(document).ready(function() {
                     //loss
                     if (playerResult <= 0 && enemyResult > 0) {
                         $('#btn-attack').attr("disabled", "disabled");
-                        addLoss();
                         lose.play();
-                        battleLoss();
+                        addLoss();
                     }
 
                     //win
                     else if (enemyResult <= 0 && playerResult > 0) {
-                        //$('#btn-attack').attr("disabled", "disabled");
+                        $('#btn-attack').attr("disabled", "disabled");
                         addWin();
-                        battleWin();
                     }
 
                     //tie
@@ -302,25 +294,35 @@ $(document).ready(function() {
                     $(".opo_hp").html(enemyResult);
                 });
             });
+            return false;
         });
+        return false;
     }
-
     //battle outcome functions
     function battleLoss() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>GAME OVER!!!</p>");
-        setTimeout(function() { lossReload(); }, 5000);
+        setTimeout(function() {
+            $('#btn-attack').prop("disabled", true);
+            lossReload();
+        }, 5000);
     }
 
     function battleTie() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>There was a TIE!!!</p>");
-        setTimeout(function() { lossReload(); }, 5000);
+        setTimeout(function() {
+            $('#btn-attack').prop("disabled", true);
+            lossReload();
+        }, 5000);
     }
 
     function battleWin() {
-        //$(".btn-player").attr("disabled", "disabled");
         $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
-        setTimeout(function() { $("#win_lose").html("<p></p>"); }, 2500);
+        setTimeout(function() {
+            $("#win_lose").html("<p></p>");
+            $('#btn-attack').prop("disabled", false);
+        }, 2500);
         attack();
+
     }
     //allSelection();
     attack();
