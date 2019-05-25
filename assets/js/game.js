@@ -73,15 +73,17 @@ $(document).ready(function() {
     var enHp;
     var enCap;
 
+    //array to help unhide used tanks
     var unHideTanks = [0, 1, 2, 3, 4, 5];
 
     //win / loss tallies
-    var winNum = 0
-    var lossNum = 0
+    var winNum = 0;
+    var lossNum = 0;
+    var tieNum = 0;
 
     function addWin() {
         winNum++
-        $(".win").html(winNum);
+        $(".win").text(winNum);
         if (winNum < 5) {
             $('#win_lose').html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!<p>")
         }
@@ -90,8 +92,14 @@ $(document).ready(function() {
 
     function addLoss() {
         lossNum++
-        $(".loss").html(lossNum);
+        $(".loss").text(lossNum);
         battleLoss();
+    }
+
+    function addTie() {
+        tieNum++
+        $(".tie").text(tieNum);
+        battleTie();
     }
 
     //battle reset after defeat
@@ -153,13 +161,11 @@ $(document).ready(function() {
         $('.btn-player').prop("disabled", false);
         $('.btn-enemy').prop("disabled", false);
 
-        //attack();
     }
 
 
 
     //player selection html load / hide
-
     $(".btn-player").on("click", function() {
         player = $(this).attr('value');
 
@@ -292,7 +298,7 @@ $(document).ready(function() {
         //tie
         else if (playerResult <= 0 && enemyResult <= 0) {
             $('#btn-attack').attr("disabled", "disabled");
-            battleTie();
+            addTie();
         };
 
         //player's current HP value html push
@@ -343,9 +349,5 @@ $(document).ready(function() {
             $("#win_lose").html("<p></p>");
             $('#btn-attack').prop("disabled", false);
         }, 2500);
-        //attack();
-
     }
-    //allSelection();
-    //attack();
 })
