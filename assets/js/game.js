@@ -61,11 +61,17 @@ $(document).ready(function() {
     var playerSelect = $(".tank_selected");
     var playerSelect_ap = $(".pla_ap");
     var playerName = $("#pla");
+    var player;
+    var plAp;
+    var plHp;
 
     //enemy selection varaiables
     var enemySelect = $(".enemy_selected");
     var enemySelect_cap = $(".opo_cap");
     var enemyName = $("#opo");
+    var enemy;
+    var enHp;
+    var enCap;
 
     var unHideTanks = [0, 1, 2, 3, 4, 5];
 
@@ -76,7 +82,7 @@ $(document).ready(function() {
     function addWin() {
         winNum++
         $(".win").html(winNum);
-        if (winNum <= 4) {
+        if (winNum < 5) {
             $('#win_lose').html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!<p>")
         }
         battleWin();
@@ -110,6 +116,8 @@ $(document).ready(function() {
         }
         //remove win / loss banner
         $("#win_lose").html("<p></p>");
+        //$('.btn-player').empty();
+        //$('.btn-enemy').empty();
 
         //player avatar reset
         playerSelect.attr(
@@ -144,14 +152,16 @@ $(document).ready(function() {
         $('#btn-attack').prop("disabled", false);
         $('.btn-player').prop("disabled", false);
         $('.btn-enemy').prop("disabled", false);
-        attack();
+
+        //attack();
     }
 
 
 
     //player selection html load / hide
+
     $(".btn-player").on("click", function() {
-        var player = $(this).attr('value');
+        player = $(this).attr('value');
 
         //player / enemy fade (hide) variables
         var hidePlayer = $("#" + [player]);
@@ -181,8 +191,14 @@ $(document).ready(function() {
 
     //enemy selection html load / hide
     $(".btn-enemy").on("click", function() {
-        //$(".btn-enemy").attr("disabled");
-        var enemy = $(this).attr('value');
+        enemy = $(this).attr('value');
+
+        enHp = tanks[enemy].hp;
+        //var enAp = tanks[enemy].ap;
+        enCap = tanks[enemy].cap;
+
+        console.log(this);
+
         //player / enemy fade (hide) variables
         var hideEnemy = $("#" + [enemy] + "-" + [enemy]);
         var hidePlayer = $("#" + [enemy]);
@@ -204,106 +220,90 @@ $(document).ready(function() {
         hidePlayer.animate({
             opacity: "0.02"
         });
+
+        $(".opo_hp").html(tanks[enemy].hp);
+
     });
 
+
     //attack function
-    function attack() {
-        //player data selection
-        $(".btn-player").on("click", function() {
-            var player = $(this).attr('value');
+    //function attack() {
+    //player data selection
+    $(".btn-player").on("click", function() {
+        //player = $(this).attr('value');
 
-            var plHp = tanks[player].hp;
-            var plAp = tanks[player].ap;
-            //var plCap = tanks[player].cap;
+        plHp = tanks[player].hp;
+        plAp = tanks[player].ap;
+        //var plCap = tanks[player].cap;
 
-            $(".pla_hp").html(tanks[player].hp);
-            console.log(this);
+        $(".pla_hp").html(tanks[player].hp);
+        console.log(this);
 
-            //console.log("Attack Function HP(player)= " + plHp)
-            //console.log("Attack Function AP(player)= " + plAp)
-            //console.log("Attack Function CAP(player)= " + plCap)
+    });
 
-            //enemy data selection
-            $(".btn-enemy").on("click", function() {
-                //$(".btn-enemy").attr("disabled");
-                var enemy = $(this).attr('value');
+    // function attack() {
+    //battle attack commands
+    $("#btn-attack").on("click", function() {
 
-                var enHp = tanks[enemy].hp;
-                //var enAp = tanks[enemy].ap;
-                var enCap = tanks[enemy].cap;
+        //tank shot wav
+        shot.play();
 
-                console.log(this);
+        //base hp reduction math set point
+        var enemyResult = 0
+        var playerResult = 0
 
-                $(".opo_hp").html(tanks[enemy].hp);
+        //initial player attack against enemy
+        enemyResult = (enHp - plAp);
+        enHp = enemyResult
 
-                //console.log("Attack Function HP(enemy)= " + enHp)
-                //console.log("Attack Function AP(enemy)= " + enAp)
-                //console.log("Attack Function CAP(enemy)= " + enCap)
+        //enemy counter attack
+        playerResult = (plHp - enCap);
+        plHp = playerResult
 
+        //repeats upon attack click until either val falls to 0 or below
 
-                //battle attack commands
-                $("#btn-attack").on("click", function() {
-
-                    //tank shot wav
-                    shot.play();
-
-                    //base hp reduction math set point
-                    var enemyResult = 0
-                    var playerResult = 0
-
-                    //initial player attack against enemy
-                    enemyResult = (enHp - plAp);
-                    enHp = enemyResult
-
-                    //enemy counter attack
-                    playerResult = (plHp - enCap);
-                    plHp = playerResult
-
-                    //repeats upon attack click until either val falls to 0 or below
-
-                    //attack debugging
-                    console.log(this);
-                    //console.log("enHp: " + enHp);
-                    //console.log("plAp: " + plAp);
-                    console.log("enemyResult: " + enemyResult);
-                    //console.log("plHp: " + plHp);
-                    //console.log("enCap: " + enCap);
-                    console.log("playerResult: " + playerResult);
+        //attack debugging
+        console.log(this);
+        //console.log("enHp: " + enHp);
+        //console.log("plAp: " + plAp);
+        console.log("enemyResult: " + enemyResult);
+        //console.log("plHp: " + plHp);
+        //console.log("enCap: " + enCap);
+        console.log("playerResult: " + playerResult);
 
 
-                    //win / lose alert and tally
-                    //loss
-                    if (playerResult <= 0 && enemyResult > 0) {
-                        $('.btn-player').prop("disabled", true);
-                        $('.btn-enemy').prop("disabled", true);
-                        $('#btn-attack').attr("disabled", "disabled");
-                        lose.play();
-                        addLoss();
-                    }
+        //win / lose alert and tally
+        //loss
+        if (playerResult <= 0 && enemyResult > 0) {
+            $('.btn-player').prop("disabled", true);
+            $('.btn-enemy').prop("disabled", true);
+            $('#btn-attack').attr("disabled", "disabled");
+            lose.play();
+            addLoss();
+        }
 
-                    //win
-                    else if (enemyResult <= 0 && playerResult > 0) {
-                        $('#btn-attack').attr("disabled", "disabled");
-                        $('.btn-player').prop("disabled", true);
-                        addWin();
-                    }
+        //win
+        else if (enemyResult <= 0 && playerResult > 0) {
+            $('#btn-attack').attr("disabled", "disabled");
+            $('.btn-player').prop("disabled", true);
+            addWin();
+        }
 
-                    //tie
-                    else if (playerResult <= 0 && enemyResult <= 0) {
-                        $('#btn-attack').attr("disabled", "disabled");
-                        battleTie();
-                    };
+        //tie
+        else if (playerResult <= 0 && enemyResult <= 0) {
+            $('#btn-attack').attr("disabled", "disabled");
+            battleTie();
+        };
 
-                    //player's current HP value html push
-                    $(".pla_hp").html(playerResult);
-                    //enemy's current HP value html push
-                    $(".opo_hp").html(enemyResult);
-                });
-                return false;
-            });
-        });
+        //player's current HP value html push
+        $(".pla_hp").html(playerResult);
+        //enemy's current HP value html push
+        $(".opo_hp").html(enemyResult);
+    });
+    //});
+    //});
 
-    }
+    //  }
 
 
     //battle outcome functions
@@ -325,13 +325,27 @@ $(document).ready(function() {
 
     function battleWin() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
+        //$('.btn-enemy').empty();
+        //enemy avatar reset
+        enemySelect.attr(
+            'src',
+            tanks[5].visual,
+        );
+        //player hp
+        enemySelect_cap.html(
+            tanks[5].cap,
+        );
+        //player name display
+        enemyName.html(
+            tanks[5].name,
+        );
         setTimeout(function() {
             $("#win_lose").html("<p></p>");
             $('#btn-attack').prop("disabled", false);
         }, 2500);
-        attack();
+        //attack();
 
     }
     //allSelection();
-    attack();
+    //attack();
 })
