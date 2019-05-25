@@ -5,7 +5,6 @@ $(document).ready(function() {
     var shot = new Audio("assets/sounds/shot.wav");
     var lose = new Audio("assets/sounds/lose.mp3")
 
-
     var tanks = [
 
         //tank information
