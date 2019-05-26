@@ -3,7 +3,8 @@ $(document).ready(function() {
     //global variables
     //audio Variables
     var shot = new Audio("assets/sounds/shot.wav");
-    var lose = new Audio("assets/sounds/lose.mp3")
+    var lose = new Audio("assets/sounds/lose.mp3");
+    var streakSound = new Audio("assets/sounds/streak.mp3");
 
     var tanks = [
 
@@ -17,28 +18,28 @@ $(document).ready(function() {
             visual: 'assets/images/good_guys/america.jpg',
             hp: 125,
             ap: (Math.floor(Math.random() * 35) + 5),
-            cap: (Math.floor(Math.random() * 40) + 1),
+            cap: (Math.floor(Math.random() * 30) + 5),
         },
         {
             name: 'British',
             visual: 'assets/images/good_guys/british.jpg',
             hp: 110,
             ap: (Math.floor(Math.random() * 40) + 5),
-            cap: (Math.floor(Math.random() * 45) + 1),
+            cap: (Math.floor(Math.random() * 35) + 5),
         },
         {
             name: 'Chinese',
             visual: 'assets/images/bad_guys/chinese.jpg',
             hp: 115,
             ap: (Math.floor(Math.random() * 35) + 5),
-            cap: (Math.floor(Math.random() * 40) + 1),
+            cap: (Math.floor(Math.random() * 30) + 5),
         },
         {
             name: 'Russia',
             visual: 'assets/images/bad_guys/russia.jpg',
             hp: 120,
             ap: (Math.floor(Math.random() * 40) + 5),
-            cap: (Math.floor(Math.random() * 45) + 1),
+            cap: (Math.floor(Math.random() * 35) + 5),
         },
         {
             name: 'Player',
@@ -79,13 +80,16 @@ $(document).ready(function() {
     var winNum = 0;
     var lossNum = 0;
     var tieNum = 0;
+    var streak = 0;
 
     function addWin() {
         winNum++
+        streak++
+
+        //streak debugging
+        console.log("streak= " + streak);
+
         $(".win").text(winNum);
-        if (winNum < 5) {
-            $('#win_lose').html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!<p>")
-        }
         battleWin();
     }
 
@@ -101,72 +105,16 @@ $(document).ready(function() {
         battleTie();
     }
 
-    //battle reset after defeat
-    function lossReload() {
-
-        //***fault / bugs that need to be corrected ***/
-        //need to correct page reload glitch that triggers game over (loss function) 
-        //first battle run-threw opperates as expected, glitches only happens after reload
-        //all "button" inputs attach multiples events after any win/loss/tie reload
-
-        //show hidden tanks from selections
-        for (var i = 0; i < unHideTanks.length; i++) {
-            var hiddenPla = $("#" + (unHideTanks[i]));
-            var hiddenEne = $("#" + [unHideTanks[i]] + "-" + [unHideTanks[i]]);
-            //unhide hidden selections
-            hiddenPla.animate({
-                opacity: "1.0"
-            });
-            hiddenEne.animate({
-                opacity: "1.0"
-            });
-        }
-        //remove win / loss banner
-        $("#win_lose").html("<p></p>");
-        //$('.btn-player').empty();
-        //$('.btn-enemy').empty();
-
-        //player avatar reset
-        playerSelect.attr(
-            'src',
-            tanks[4].visual,
-        );
-        //player ap
-        playerSelect_ap.html(
-            tanks[4].ap,
-        );
-        //player name display
-        playerName.html(
-            tanks[4].name,
-        );
-        //enemy avatar reset
-        enemySelect.attr(
-            'src',
-            tanks[5].visual,
-        );
-        //player hp
-        enemySelect_cap.html(
-            tanks[5].cap,
-        );
-        //player name display
-        enemyName.html(
-            tanks[5].name,
-        );
-        $(".pla_hp").html(tanks[4].hp);
-        $(".opo_hp").html(tanks[5].hp);
-
-        //allSelection();
-        $('#btn-attack').prop("disabled", false);
-        $('.btn-player').prop("disabled", false);
-        $('.btn-enemy').prop("disabled", false);
-
-    }
-
-
-
     //player selection html load / hide
     $(".btn-player").on("click", function() {
         player = $(this).attr('value');
+
+        plHp = tanks[player].hp;
+        plAp = tanks[player].ap;
+        //var plCap = tanks[player].cap;
+
+        //player button debugging
+        //console.log(this);
 
         //player / enemy fade (hide) variables
         var hidePlayer = $("#" + [player]);
@@ -192,6 +140,8 @@ $(document).ready(function() {
         hideEnemy.animate({
             opacity: "0.02"
         });
+        //player scoreboard HP projection
+        $(".pla_hp").html(tanks[player].hp);
     });
 
     //enemy selection html load / hide
@@ -202,7 +152,8 @@ $(document).ready(function() {
         //var enAp = tanks[enemy].ap;
         enCap = tanks[enemy].cap;
 
-        console.log(this);
+        //enemy button debugging
+        //console.log(this);
 
         //player / enemy fade (hide) variables
         var hideEnemy = $("#" + [enemy] + "-" + [enemy]);
@@ -225,28 +176,10 @@ $(document).ready(function() {
         hidePlayer.animate({
             opacity: "0.02"
         });
-
+        //enemy HP scoreboard prjection
         $(".opo_hp").html(tanks[enemy].hp);
-
     });
 
-
-    //attack function
-    //function attack() {
-    //player data selection
-    $(".btn-player").on("click", function() {
-        //player = $(this).attr('value');
-
-        plHp = tanks[player].hp;
-        plAp = tanks[player].ap;
-        //var plCap = tanks[player].cap;
-
-        $(".pla_hp").html(tanks[player].hp);
-        console.log(this);
-
-    });
-
-    // function attack() {
     //battle attack commands
     $("#btn-attack").on("click", function() {
 
@@ -268,13 +201,13 @@ $(document).ready(function() {
         //repeats upon attack click until either val falls to 0 or below
 
         //attack debugging
-        console.log(this);
+        //console.log(this);
         //console.log("enHp: " + enHp);
         //console.log("plAp: " + plAp);
-        console.log("enemyResult: " + enemyResult);
+        //console.log("enemyResult: " + enemyResult);
         //console.log("plHp: " + plHp);
         //console.log("enCap: " + enCap);
-        console.log("playerResult: " + playerResult);
+        //console.log("playerResult: " + playerResult);
 
 
         //win / lose alert and tally
@@ -305,18 +238,13 @@ $(document).ready(function() {
         //enemy's current HP value html push
         $(".opo_hp").html(enemyResult);
     });
-    //});
-    //});
-
-    //  }
-
 
     //battle outcome functions
     function battleLoss() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>GAME OVER!!!</p>");
         setTimeout(function() {
             $('#btn-attack').prop("disabled", true);
-            lossReload();
+            reload();
         }, 5000);
     }
 
@@ -324,13 +252,82 @@ $(document).ready(function() {
         $("#win_lose").html("<p style='text-shadow: 2px 2px #ff0000;'>There was a TIE!!!</p>");
         setTimeout(function() {
             $('#btn-attack').prop("disabled", true);
-            lossReload();
+            reload();
         }, 5000);
     }
 
     function battleWin() {
-        $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
-        //$('.btn-enemy').empty();
+        if (streak >= 3) {
+            $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!</p>");
+            streakSound.play();
+
+            //reset scoreboard HP
+            setTimeout(function() {
+                //$("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!</p>");
+                $('#btn-attack').prop("disabled", false);
+                $(".pla_hp").html(tanks[4].hp);
+                $(".opo_hp").html(tanks[5].hp);
+            }, 2500);
+            $("#win_lose").empty();
+            reload();
+        } else {
+            $("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>You WIN, Select Again</p>");
+
+            //enemy avatar reset
+            enemySelect.attr(
+                'src',
+                tanks[5].visual,
+            );
+            //player hp
+            enemySelect_cap.html(
+                tanks[5].cap,
+            );
+            //player name display
+            enemyName.html(
+                tanks[5].name,
+            );
+            setTimeout(function() {
+                $("#win_lose").empty();
+                $('#btn-attack').prop("disabled", false);
+            }, 2500);
+        }
+
+    }
+
+    //battle reset after defeat
+    function reload() {
+
+        //show hidden tanks from previouse selections
+        for (var i = 0; i < unHideTanks.length; i++) {
+            var hiddenPla = $("#" + (unHideTanks[i]));
+            var hiddenEne = $("#" + [unHideTanks[i]] + "-" + [unHideTanks[i]]);
+            //unhide hidden selections
+            hiddenPla.animate({
+                opacity: "1.0"
+            });
+            hiddenEne.animate({
+                opacity: "1.0"
+            });
+        }
+        //remove win / loss banner
+        $("#win_lose").empty();
+        streak = 0;
+        plHp = 0;
+        enCap = 0;
+
+        //player avatar reset
+        playerSelect.attr(
+            'src',
+            tanks[4].visual,
+        );
+        //player ap
+        playerSelect_ap.html(
+            tanks[4].ap,
+        );
+        //player name display
+        playerName.html(
+            tanks[4].name,
+        );
         //enemy avatar reset
         enemySelect.attr(
             'src',
@@ -344,9 +341,15 @@ $(document).ready(function() {
         enemyName.html(
             tanks[5].name,
         );
-        setTimeout(function() {
-            $("#win_lose").html("<p></p>");
-            $('#btn-attack').prop("disabled", false);
-        }, 2500);
+
+        //reset scoreboard HP
+        $(".pla_hp").html(tanks[4].hp);
+        $(".opo_hp").html(tanks[5].hp);
+
+        //enable buttons
+        $('#btn-attack').prop("disabled", false);
+        $('.btn-player').prop("disabled", false);
+        $('.btn-enemy').prop("disabled", false);
+
     }
 })
