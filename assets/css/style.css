@@ -355,6 +355,10 @@ body {
     .enemy img {
         width: 90%;
     }
+    #pla,
+    #opo {
+        font-size: 10px;
+    }
     .attack {
         height: 25px;
         padding: 10px;
