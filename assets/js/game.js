@@ -14,7 +14,7 @@ $(document).ready(function() {
         //cap = counter attack power
 
         {
-            name: 'America',
+            name: 'American',
             visual: 'assets/images/good_guys/america.jpg',
             hp: 125,
             ap: (Math.floor(Math.random() * 35) + 5),
@@ -35,7 +35,7 @@ $(document).ready(function() {
             cap: (Math.floor(Math.random() * 30) + 5),
         },
         {
-            name: 'Russia',
+            name: 'Russian',
             visual: 'assets/images/bad_guys/russia.jpg',
             hp: 120,
             ap: (Math.floor(Math.random() * 40) + 5),

@@ -137,6 +137,13 @@ body {
     background: lightgrey;
 }
 
+#pla,
+#opo,
+#pla_ap,
+#opo_cap {
+    font-size: 15px;
+}
+
 .player {
     margin-left: 12%;
     text-shadow: 2px 2px #01ff2b;
