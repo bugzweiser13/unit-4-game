@@ -301,7 +301,7 @@ body {
 
 @media only screen and (max-width: 500px) {
     #banner {
-        margin: 0 auto 5% auto;
+        margin: 2% auto 5% auto;
         width: 85%;
     }
     #banner h2,
@@ -310,7 +310,7 @@ body {
     }
     .btn-player h3,
     .btn-enemy h3 {
-        font-size: 10px;
+        font-size: 8px;
     }
     #ps,
     #es {
@@ -321,17 +321,20 @@ body {
     }
     #selection button {
         margin: 1% 0 0 2%;
-        width: 20%;
+        width: 23%;
         padding: 2px;
     }
     #selection img {
         width: 90%;
     }
     #scoreboard {
-        width: 85%;
+        width: 95%;
         padding: 2px;
         height: 125px;
         margin: 2% 0 0 2%;
+    }
+    #sb_pl_hp {
+        margin-right: 2%;
     }
     #sb_pl_hp,
     #sb_op_hp {
@@ -352,11 +355,17 @@ body {
         width: 40%;
         font-size: 10px;
     }
+    #space {
+        margin-top: 3%;
+    }
     .player,
     .enemy {
         padding: 2px;
         font-size: 10px;
-        width: 20%;
+        width: 30%;
+    }
+    .enemy {
+        margin-left: 2%;
     }
     .player img,
     .enemy img {
@@ -366,7 +375,7 @@ body {
     #opo {
         font-size: 10px;
     }
-    .attack {
+    #btn-attack {
         height: 25px;
         padding: 10px;
         font-size: 10px;
