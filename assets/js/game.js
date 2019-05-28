@@ -265,6 +265,8 @@ $(document).ready(function() {
 
             //reset scoreboard HP
             setTimeout(function() {
+                // need to correct bug that will not show "You are the Champion" display
+
                 //$("#win_lose").html("<p style='text-shadow: 2px 2px #01ff2b;'>YOU ARE THE CHAMPION!!!</p>");
                 $('#btn-attack').prop("disabled", false);
                 $(".pla_hp").html(tanks[4].hp);
