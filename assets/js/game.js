@@ -1,14 +1,16 @@
 $(document).ready(function() {
 
     //global variables
+
     //audio Variables
     var shot = new Audio("assets/sounds/shot.wav");
     var lose = new Audio("assets/sounds/lose.mp3");
     var streakSound = new Audio("assets/sounds/streak.mp3");
 
+    //tank information
     var tanks = [
 
-        //tank information
+
         //hp = hit points
         //ap = attack power
         //cap = counter attack power
